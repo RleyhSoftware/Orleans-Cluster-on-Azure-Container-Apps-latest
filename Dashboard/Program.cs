@@ -16,7 +16,7 @@ builder.Host.UseOrleans(siloBuilder =>
         {
             options.SiloName = "Dashboard";
         })
-        .ConfigureEndpoints(siloPort: 11_111, gatewayPort: 30_000)
+        .ConfigureEndpoints(siloPort: 11_112, gatewayPort: 30_001)
         ;
         
     DebugFoo(siloBuilder);
