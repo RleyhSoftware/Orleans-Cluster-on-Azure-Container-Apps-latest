@@ -8,16 +8,22 @@ namespace Abstractions
         Task ReceiveSensorState(SensorState sensorState);
     }
 
-    [Serializable]
-    public class SensorState
+    [GenerateSerializer, Immutable]
+    public sealed record SensorState
     {
-        public string? SensorId { get; set; }
-        public double Value { get; set; }
-        public DateTime TimeStamp { get; set; } = DateTime.Now;
-        public SensorType Type { get; set; } = SensorType.Unspecified;
+        [Id(0)]
+        public string? SensorId { get; init; }
+        
+        [Id(1)]
+        public double Value { get; init; }
+        
+        [Id(2)]
+        public DateTime TimeStamp { get; init; } = DateTime.Now;
+        
+        [Id(3)]
+        public SensorType Type { get; init; } = SensorType.Unspecified;
     }
 
-    [Serializable]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SensorType
     {

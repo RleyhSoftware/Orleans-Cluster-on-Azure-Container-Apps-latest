@@ -1,7 +1,5 @@
 ﻿using Abstractions;
 using Microsoft.Extensions.Logging;
-using Orleans;
-using Orleans.Configuration;
 
 namespace Grains
 {
@@ -9,12 +7,12 @@ namespace Grains
     [DontPlaceMeOnTheDashboard]
     public class SensorTwinGrain : Grain, ISensorTwinGrain
     {
-        public ILogger<SensorTwinGrain> Logger { get; set; }
+        private ILogger<SensorTwinGrain> Logger { get; }
 
         public SensorTwinGrain(ILogger<SensorTwinGrain> logger) => Logger = logger;
 
-        public async Task ReceiveSensorState(SensorState sensorState) => 
-            await Task.Run(() => Logger.LogInformation($"Received value of {sensorState.Value} for {sensorState.Type} state reading from sensor {this.GetGrainIdentity().PrimaryKeyString}"));
-
+        public Task ReceiveSensorState(SensorState sensorState) =>
+            Task.Run(() => Logger.LogInformation("Received value from sensorId {SensorId} of {SensorStateValue} for {SensorStateType} state reading from sensor {Key}", 
+                sensorState.SensorId, sensorState.Value, sensorState.Type, this.GetGrainId().Key));
     }
 }
