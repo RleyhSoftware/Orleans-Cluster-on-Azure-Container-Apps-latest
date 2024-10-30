@@ -46,7 +46,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y libicu74 libicu-dev
-  
+        
+    - name: Set invariant globalization mode (fallback)
+      run: |
+        echo "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true" >> $GITHUB_ENV
+        
     - name: Create resource group
       uses: azure/CLI@v1
       with:
