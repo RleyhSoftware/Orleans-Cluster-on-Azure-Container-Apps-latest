@@ -3,12 +3,12 @@ name: Build and deploy .NET application to Container App silo
 on:
   push:
     branches:
-    - orleans7
+    - deploy
 
 env:
   
   # alphanumeric string under 14 characters
-  RESOURCE_GROUP_NAME: orleansVinit
+  RESOURCE_GROUP_NAME: orleansVin
 
   # specify your preferred region
   REGION: westus2
