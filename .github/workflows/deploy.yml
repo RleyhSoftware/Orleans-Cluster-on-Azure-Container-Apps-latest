@@ -42,10 +42,10 @@ jobs:
       with:
         creds: ${{ secrets.AzureSPN }}
         
-    - name: Install ICU libraries (libicu72)
+    - name: Install ICU libraries (libicu-dev)
       run: |
         sudo apt-get update
-        sudo apt-get install -y libicu74 libicu-dev
+        sudo apt-get install -y libicu-dev
   
     - name: Create resource group
       uses: azure/CLI@v1
