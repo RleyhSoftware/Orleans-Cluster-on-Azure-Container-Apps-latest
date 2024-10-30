@@ -30,7 +30,7 @@ env:
 
 jobs:
   provision:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
 
@@ -77,7 +77,7 @@ jobs:
     - name: Set invariant globalization mode (fallback)
       run: |
         echo "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true" >> $GITHUB_ENV
-        
+
     - name: Azure Login
       uses: azure/login@v1
       with:
