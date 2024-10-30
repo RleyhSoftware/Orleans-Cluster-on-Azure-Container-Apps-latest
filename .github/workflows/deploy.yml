@@ -42,9 +42,10 @@ jobs:
       with:
         creds: ${{ secrets.AzureSPN }}
         
-    - name: Set environment variable to skip globalization checks
+    - name: Install ICU libraries (libicu72)
       run: |
-          export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+        sudo apt-get update
+        sudo apt-get install -y libicu74 libicu-dev
   
     - name: Create resource group
       uses: azure/CLI@v1
