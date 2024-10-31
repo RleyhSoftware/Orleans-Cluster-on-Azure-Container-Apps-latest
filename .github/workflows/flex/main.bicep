@@ -36,6 +36,14 @@ var shared_config = [
   }
 ]
 
+// Extend config for the dashboard
+var extended_config = array(shared_config, [
+  {
+    name: 'PORT'
+    value: '8080'
+  }
+])
+
 module scaler 'scaler.bicep' = {
   name: 'scaler'
   params: {
@@ -76,7 +84,7 @@ module dashboard 'dashboard.bicep' = {
     allowExternalIngress: true
     targetIngressPort: 8080
     maxReplicas: 1
-    envVars : shared_config
+    envVars : extended_config
   }
 }
 
