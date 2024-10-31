@@ -61,4 +61,12 @@ var app = builder.Build();
 
 app.MapGet("/", () => Results.Ok("Dashboard"));
 
-await app.RunAsync();
+try
+{
+    await app.RunAsync();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error occurred: {ex.Message}");
+    throw;
+}
