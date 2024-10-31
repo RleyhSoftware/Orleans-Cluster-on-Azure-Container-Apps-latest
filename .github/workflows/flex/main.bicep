@@ -37,7 +37,15 @@ var shared_config = [
 ]
 
 // Extend config for the dashboard
-var extended_config = [...shared_config
+var extended_config = [
+  {
+    name: 'ASPNETCORE_ENVIRONMENT'
+    value: 'Development'
+  }
+  {
+    name: 'StorageConnectionString'
+    value: format('DefaultEndpointsProtocol=https;AccountName=${storage.outputs.storageName};AccountKey=${storage.outputs.accountKey};EndpointSuffix=core.windows.net')
+  }
   {
     name: 'PORT'
     value: '8080'
