@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddWebAppApplicationInsights("Dashboard");
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+Console.WriteLine($"Kestrel is configured to listen on port {port}");
 // Configure Kestrel to listen on all IPs and a specific port (e.g., 8080)
 builder.WebHost.ConfigureKestrel(options =>
 {
