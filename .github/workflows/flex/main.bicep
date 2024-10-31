@@ -36,6 +36,22 @@ var shared_config = [
   }
 ]
 
+// Extend config for the dashboard
+var extended_config = [
+  {
+    name: 'ASPNETCORE_ENVIRONMENT'
+    value: 'Development'
+  }
+  {
+    name: 'StorageConnectionString'
+    value: format('DefaultEndpointsProtocol=https;AccountName=${storage.outputs.storageName};AccountKey=${storage.outputs.accountKey};EndpointSuffix=core.windows.net')
+  }
+  {
+    name: 'PORT'
+    value: '8080'
+  }
+]
+
 module scaler 'scaler.bicep' = {
   name: 'scaler'
   params: {
@@ -76,7 +92,7 @@ module dashboard 'dashboard.bicep' = {
     allowExternalIngress: true
     targetIngressPort: 8080
     maxReplicas: 1
-    envVars : shared_config
+    envVars : extended_config
   }
 }
 

@@ -3,15 +3,15 @@ name: Build and deploy .NET application to Container App silo
 on:
   push:
     branches:
-    - orleans7
+    - deploy
 
 env:
   
   # alphanumeric string under 14 characters
-  RESOURCE_GROUP_NAME: orleans7bookieuk
+  RESOURCE_GROUP_NAME: orleansVin
 
   # specify your preferred region
-  REGION: ukwest
+  REGION: westus2
 
   SILO_DOCKER_FILE_PATH: Silo/Dockerfile
   SILO_IMAGE_NAME: silo
@@ -30,7 +30,7 @@ env:
 
 jobs:
   provision:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
 
@@ -41,6 +41,16 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AzureSPN }}
+    
+
+    - name: Install ICU libraries (libicu-dev)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libicu74 libicu-dev
+        
+    - name: Set invariant globalization mode (fallback)
+      run: |
+        echo "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true" >> $GITHUB_ENV
 
     - name: Create resource group
       uses: azure/CLI@v1
@@ -61,7 +71,7 @@ jobs:
           az deployment group create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --template-file '.github/workflows/flex/main.bicep' --debug
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: provision
     
     steps:
@@ -129,7 +139,7 @@ jobs:
         file: ${{ env.SCALER_DOCKER_FILE_PATH }}
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
 
     steps:
