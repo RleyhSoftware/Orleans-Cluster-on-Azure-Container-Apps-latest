@@ -4,10 +4,11 @@ using Orleans.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddWebAppApplicationInsights("Dashboard");
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 // Configure Kestrel to listen on all IPs and a specific port (e.g., 8080)
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8080); // Ensure this matches your Azure Container App's exposed port
+    options.ListenAnyIP(int.Parse(port)); // Ensure this matches your Azure Container App's exposed port
 });
 
 builder.Host.UseOrleans(siloBuilder =>
