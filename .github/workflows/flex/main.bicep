@@ -37,12 +37,12 @@ var shared_config = [
 ]
 
 // Extend config for the dashboard
-var extended_config = array(shared_config, [
+var extended_config = [...shared_config
   {
     name: 'PORT'
     value: '8080'
   }
-])
+]
 
 module scaler 'scaler.bicep' = {
   name: 'scaler'
