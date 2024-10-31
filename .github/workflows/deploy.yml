@@ -186,7 +186,7 @@ jobs:
           
           az containerapp registry set -n dashboard -g ${{ env.RESOURCE_GROUP_NAME }} --server ${{ env.ACR_LOGIN_SERVER }}
 
-          az containerapp update -n dashboard -g ${{ env.RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.DASHBOARD_IMAGE_NAME }}:${{ github.sha }}
+          az containerapp update -n dashboard -g ${{ env.RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.DASHBOARD_IMAGE_NAME }}:${{ github.sha }} --target-port 8080 --ingress external
 
     - name: Deploy Minimal API Client
       uses: azure/CLI@v1
